@@ -44,7 +44,7 @@ This repository contains practice code and learning exercises. For production wo
 
 2026_Rust_Knockoff/
 ├── README.md
-├── javascript-fundamentals/
+├── javascript/
 │ ├── async-await-practice.js
 │ ├── array-methods.js
 │ ├── promises.js
