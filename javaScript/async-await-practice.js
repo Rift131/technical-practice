@@ -91,7 +91,7 @@ async function fetchMultipleParallel(urls) {
     const startTime = performance.now();
     const fetchPromises = urls.map((url) => fetch(url));
     const sendIt = await Promise.all(fetchPromises);
-    console.log(sendIt);
+    sendIt;
     console.log(`Total Parallel duration: ${duration(startTime)} ms`);
   } catch (error) {
     console.error(error);
