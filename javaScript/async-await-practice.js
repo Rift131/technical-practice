@@ -44,7 +44,18 @@
  *
  * You can use "finally()" to execure code (like closing a database connection or hiding a loading spinner) regardless of
  * whether the operation sicceeded or failed.
+ *
+ * Testing the parallel and sequential functions with the same argument, the difference in performance was pretty sizeable:
+ *                       Total Parallel duration: 261.0862499475479 ms
+ *                       Total Sequential duration: 1936.3084579706192 ms
  */
+
+/** HELPER FUNCTIONS */
+
+const duration = (startTime) => {
+  const endTime = performance.now();
+  return endTime - startTime;
+};
 
 // Example 1: Basic Async/Await
 async function fetchUserData(userId) {
@@ -52,7 +63,7 @@ async function fetchUserData(userId) {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/users/${userId}`,
     );
-    console.log(response);
+    response;
     return response;
   } catch (error) {
     console.error("Operation unsuccessful: " + error.message);
@@ -62,11 +73,30 @@ async function fetchUserData(userId) {
 
 // Example 2: Sequential vs Parallel
 async function fetchMultipleSequential(urls) {
-  // Your code here
+  try {
+    const startTime = performance.now();
+    for (const url of urls) {
+      const response = await fetch(url);
+      response;
+    }
+    console.log(`Total Sequential duration: ${duration(startTime)} ms`);
+  } catch (error) {
+    console.error("Fetch multiple sequential unsuccessful: " + error.message);
+    throw error;
+  }
 }
 
 async function fetchMultipleParallel(urls) {
-  // Your code here
+  try {
+    const startTime = performance.now();
+    const fetchPromises = urls.map((url) => fetch(url));
+    const sendIt = await Promise.all(fetchPromises);
+    console.log(sendIt);
+    console.log(`Total Parallel duration: ${duration(startTime)} ms`);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 // Example 3: Multi-step Error Handling
@@ -92,21 +122,6 @@ async function fetchWithRetry(url, maxRetries) {
   // Your code here
 }
 
-// Test your functions. Run with: node asyncAwait_Practice.js
-(async () => {
-  try {
-    console.log("Testing Example 1...");
-    await fetchUserData(1);
-
-    console.log("Testing Example 2...");
-    // await fetchMultipleSequential([...]);
-
-    // etc.
-  } catch (error) {
-    console.error("Test failed:", error);
-  }
-})();
-
 /**
  * Free API's
  */
@@ -118,3 +133,75 @@ const API_POSTS = "https://jsonplaceholder.typicode.com/posts";
 
 // For testing errors (this will 404)
 const API_ERROR = "https://jsonplaceholder.typicode.com/invalid";
+
+const apis = [
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+  API_USER,
+  API_POSTS,
+  API_USER,
+];
+
+// Test your functions. Run with: node asyncAwait_Practice.js
+(async () => {
+  try {
+    console.log("Testing Example 1...");
+    await fetchMultipleParallel(apis);
+
+    console.log("Testing Example 2...");
+    await fetchMultipleSequential(apis);
+
+    // etc.
+  } catch (error) {
+    console.error("Test failed:", error);
+  }
+})();
