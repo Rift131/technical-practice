@@ -86,3 +86,6 @@ assertIsAnagram(numsInText, false, "numsInText");
 
 const hasMissingLetter = isAnagram("awesome", "awesom");
 assertIsAnagram(hasMissingLetter, false, "hasMissingLetter");
+
+const isSentences = isAnagram("This is a sentence", "This a sentence is");
+assertIsAnagram(isSentences, false, "isSentences");
