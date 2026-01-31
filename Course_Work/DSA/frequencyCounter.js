@@ -5,16 +5,6 @@ a word, phrase, or name formed by rearranging the
 letters of another, such as cinema, formed from iceman.
  */
 
-/** TESTING DATA...
-validAnagram('','') // true
-validAnagram('aaz','zza') // false
-validAnagram('anagram','nagaram') // true
-validAnagram("rat","car") // false) // false
-validAnagram('awesome','awesom') // false
-validAnagram('qwerty','qeywrt') // true
-validAnagram('texttwisttime','timetwisttext') // true
-*/
-
 const isChar = (char) => {
   return char >= "a" && char <= "z"; // Far more efficient than regex
 };
@@ -58,15 +48,12 @@ function isAnagram(str1, str2) {
 /**
  * Tests
  **/
-// console.log(isAnagram("texttwisttime", "timetwisttext")); // true
-// console.log(isAnagram("rat", "car")); // false
-// console.log(isAnagram("rat", "car")); // false
-// console.log(isAnagram("text9twisttime", "3time")); // false
-
+console.log(isAnagram("text9twisttime", "3time")); // false
 console.log(isAnagram("", "")); // true
-console.log(isAnagram("aaz", "zza")); // false
-console.log(isAnagram("anagram", "nagaram")); // true
-console.log(isAnagram("rat", "car")); // false
+console.log(isAnagram("aaZ", "zza")); // false
+console.log(isAnagram("anaGram", "nagaram")); // true
+console.log(isAnagram("rat", "caR")); // false
 console.log(isAnagram("awesome", "awesom")); // false
 console.log(isAnagram("qwerty", "qeywrt")); // true
 console.log(isAnagram("texttwisttime", "timetwisttext")); // true
+console.log(isAnagram("texttwisTTime", "timetwisttext")); // true
