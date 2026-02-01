@@ -4,7 +4,7 @@
  * Declares that the functions response will not be synchronized with other logic. It's response is variable
  * from the time of being called to when it responds. This also allows the use of the "await" keyword which
  * tells the function not to progress until the Promise has been returned. *** "Async" is a technique that
- * enables your program to be responsive to other events while the task runs, tather than having to wait
+ * enables your program to be responsive to other events while the awaited task runs, tather than having to wait
  * until that task has finished. Once the task is finished, the function is given the result. Examples of
  * this are tasks that access a users camera and/or microphone, making HTTP requests with fetch() or asking
  * a user to select files using showOpenFilePicker().
@@ -14,8 +14,7 @@
  * effectively pauses until a response for the API call, the promise, is received.
  *
  * What happens if you await a non-promise?
- * I'm not sure that anything negative would happen other than to confuse developers reading the code. *** What
- * actually happens is the execution order changes when you await a non-promise. The code following the "await"
+ * What actually happens is the execution order changes when you await a non-promise. The code following the "await"
  * is scheduled as a microtask for the next "tick" of the event loop. This means other pending microtasks or
  * synchornous code will run before the awaited function resumes.
  *
@@ -32,22 +31,22 @@
  *
  * You can also chain ".catch()". You append this to the promise returned by an async function.
  *
- * More robust error handling, especially with network requests, implementing retru logic or using AbortController for
+ * More robust error handling, especially with network requests, implementing retry logic or using AbortController for
  * timeouts can be beneficial.
  *
  * Automatic bubbling: if an error occurs inside an async function and is not caught by a try/catch block, the function
  * returns a rejected promise containing that error. This allows the error to propogate up the promise chain until it is
- * handled.
+ * handled... or crashes the application.
  *
  * Multiple Operations: Specialized promise methods like "Promise.allSettled()" to wait for all Promises, even if some fail
  * or "Promise.all()" to allow failure to occur immediately if any one promise fails.
  *
- * You can use "finally()" to execure code (like closing a database connection or hiding a loading spinner) regardless of
- * whether the operation sicceeded or failed.
+ * You can use "finally()" to execute code (like closing a database connection or hiding a loading spinner) regardless of
+ * whether the operation succeeded or failed.
  *
  * Testing the parallel and sequential functions with the same argument, the difference in performance was pretty sizeable:
- *                       Total Parallel duration: 261.0862499475479 ms
- *                       Total Sequential duration: 1936.3084579706192 ms
+ *                              Total Sequential duration: 1936.3084579706192 ms
+ *                              Total Parallel duration: 261.0862499475479 ms *
  */
 
 /** HELPER FUNCTIONS */
@@ -57,7 +56,7 @@ const duration = (startTime) => {
   return endTime - startTime;
 };
 
-// Example 1: Basic Async/Await
+// Example 1: Basic singular Async/Await API call
 async function fetchUserData(userId) {
   try {
     const response = await fetch(
@@ -66,12 +65,12 @@ async function fetchUserData(userId) {
     response;
     return response;
   } catch (error) {
-    console.error("Operation unsuccessful: " + error.message);
+    console.error("Operation fetchUserData unsuccessful: " + error.message);
     throw error;
   }
 }
 
-// Example 2: Sequential vs Parallel
+// Example 2: Sequential vs Parallel API calls
 async function fetchMultipleSequential(urls) {
   try {
     const startTime = performance.now();
@@ -94,7 +93,7 @@ async function fetchMultipleParallel(urls) {
     sendIt;
     console.log(`Total Parallel duration: ${duration(startTime)} ms`);
   } catch (error) {
-    console.error(error);
+    console.error("Function fetchMultipleParallel failed: " + error.message);
     throw error;
   }
 }
