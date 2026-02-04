@@ -4,6 +4,14 @@
  * but it will always be sorted.
  */
 
+/** Intended approach: Use the array itself to store the unique values.
+ * There's nothing in the task that says you can't and most similar
+ * leetcode problems allow you to / expect you to do this. Use one
+ * pointer as a reader and one as a writer. The reader pointer must
+ * be moved to where the value being read needs to be written BEFORE
+ * you write it.
+ */
+
 const countUniqueValues = (arr) => {
   return;
 };
