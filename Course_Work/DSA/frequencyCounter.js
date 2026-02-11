@@ -9,14 +9,14 @@ const isChar = (char) => {
   return char >= "a" && char <= "z"; // Far more efficient than regex
 };
 /*
-// "isAnagram" = boolean returning function
+// "isAnagramCS" = boolean returning function
 // Approach is the use a build up and tear-down of an object. In an anagram situation
 // if we can build up an object with letters and their counts, then we should be 
 // able to tear it down with the second string. One loop to build up followed by 
 // one loop to tear down. If matches are not found or the two strings aren't equal
 // in length, we return false right away.
 */
-function isAnagram(str1, str2) {
+function isAnagramCS(str1, str2) {
   // Standardize inputs so they can be compared 1 to 1
   let str1Clean = str1.toLowerCase();
   let str2Clean = str2.toLowerCase();
@@ -50,7 +50,7 @@ function isAnagram(str1, str2) {
  * Tests
  **/
 
-const assertIsAnagram = (actual, expected, testName) => {
+const assertisAnagramCS = (actual, expected, testName) => {
   if (actual === expected) {
     console.log("Success");
   } else {
@@ -61,31 +61,31 @@ const assertIsAnagram = (actual, expected, testName) => {
 };
 
 /** True Tests */
-const emptyText = isAnagram("", "");
-assertIsAnagram(emptyText, true, "emptyText");
+const emptyText = isAnagramCS("", "");
+assertisAnagramCS(emptyText, true, "emptyText");
 
-const upperCaseSome = isAnagram("anaGram", "nagaram");
-assertIsAnagram(upperCaseSome, true, "upperCaseSome");
+const upperCaseSome = isAnagramCS("anaGram", "nagaram");
+assertisAnagramCS(upperCaseSome, true, "upperCaseSome");
 
-const longTestAnagram = isAnagram("texttwisttime", "timetwisttext");
-assertIsAnagram(longTestAnagram, true, "longTestAnagram");
+const longTestAnagram = isAnagramCS("texttwisttime", "timetwisttext");
+assertisAnagramCS(longTestAnagram, true, "longTestAnagram");
 
 /** False Tests */
 
-const upperCaseSomeNonAnagram = isAnagram("aaZ", "zza");
-assertIsAnagram(upperCaseSomeNonAnagram, false, "upperCaseSomeNonAnagram");
+const upperCaseSomeNonAnagram = isAnagramCS("aaZ", "zza");
+assertisAnagramCS(upperCaseSomeNonAnagram, false, "upperCaseSomeNonAnagram");
 
-const hasNoCharButIsEqual = isAnagram("%^&*(^65576587", "%^&*(^56755678");
-assertIsAnagram(hasNoCharButIsEqual, false, "hasNoCharButIsEqual");
+const hasNoCharButIsEqual = isAnagramCS("%^&*(^65576587", "%^&*(^56755678");
+assertisAnagramCS(hasNoCharButIsEqual, false, "hasNoCharButIsEqual");
 
-const hasNoCharNotEqual = isAnagram("6856-+-", "65--");
-assertIsAnagram(hasNoCharNotEqual, false, "hasNoCharNotEqual");
+const hasNoCharNotEqual = isAnagramCS("6856-+-", "65--");
+assertisAnagramCS(hasNoCharNotEqual, false, "hasNoCharNotEqual");
 
-const numsInText = isAnagram("text9twisttime", "3time");
-assertIsAnagram(numsInText, false, "numsInText");
+const numsInText = isAnagramCS("text9twisttime", "3time");
+assertisAnagramCS(numsInText, false, "numsInText");
 
-const hasMissingLetter = isAnagram("awesome", "awesom");
-assertIsAnagram(hasMissingLetter, false, "hasMissingLetter");
+const hasMissingLetter = isAnagramCS("awesome", "awesom");
+assertisAnagramCS(hasMissingLetter, false, "hasMissingLetter");
 
-const isSentences = isAnagram("This is a sentence", "This a sentence is");
-assertIsAnagram(isSentences, false, "isSentences");
+const isSentences = isAnagramCS("This is a sentence", "This a sentence is");
+assertisAnagramCS(isSentences, false, "isSentences");
