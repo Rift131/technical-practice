@@ -34,8 +34,6 @@ The Fix: By joining the digits back into a single string (e.g., "123"), we can u
         .join("")
     );
   };
-  console.log("FIRST: " + normalize(Math.abs(num1)));
-  console.log("SECOND: " + normalize(Math.abs(num2)));
   return normalize(Math.abs(num1)) === normalize(Math.abs(num2));
 };
 
